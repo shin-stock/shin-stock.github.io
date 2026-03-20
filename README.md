@@ -1,0 +1,1 @@
+# shin-stock.github.io
