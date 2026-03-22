@@ -6,21 +6,47 @@
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
-<h3>株価比較（前日比1514）</h3>
+<h3>株価比較（前日比20）</h3>
 
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
 
+
 <script>
-const chart = LightweightCharts.createChart(document.getElementById('chart'), {
-    width: document.getElementById('chart').clientWidth,
-    height: 400
+const chartEl = document.getElementById('chart');
+
+const chart = LightweightCharts.createChart(chartEl, {
+    width: Math.max(document.documentElement.clientWidth - 16, 300),
+    height: 400,
+    layout: {
+        background: { color: '#ffffff' },
+        textColor: '#000000'
+    },
+    grid: {
+        vertLines: { color: '#e0e0e0' },
+        horzLines: { color: '#e0e0e0' }
+    },
+    rightPriceScale: {
+        visible: true
+    },
+    timeScale: {
+        visible: true,
+        borderVisible: true
+    }
 });
 
-const line1 = chart.addLineSeries({ title: "A" });
-const line2 = chart.addLineSeries({ title: "B" });
-const line3 = chart.addLineSeries({ title: "C" });
+const line1 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: 'A'
+});
+const line2 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: 'B'
+});
+const line3 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: 'C'
+});
 
-// ダミーデータ（ここを後でAPIに差し替え）
 const dataA = [
     { time: '2024-01-01', value: 100 },
     { time: '2024-01-02', value: 102 },
@@ -44,6 +70,12 @@ line2.setData(dataB);
 line3.setData(dataC);
 
 chart.timeScale().fitContent();
+
+window.addEventListener('resize', () => {
+    chart.applyOptions({
+        width: Math.max(document.documentElement.clientWidth - 16, 300)
+    });
+});
 </script>
 
 </body>
