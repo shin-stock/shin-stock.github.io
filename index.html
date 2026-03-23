@@ -46,13 +46,13 @@ const line3 = chart.addSeries(LightweightCharts.LineSeries, {
     lineWidth: 2,
     title: 'C'
 });
-/＊
+
 const dataA = [
     { time: '2024-01-01', value: 100 },
     { time: '2024-01-02', value: 102 },
     { time: '2024-01-03', value: 105 }
 ]
-＊/
+/＊
 fetch('https://query1.finance.yahoo.com/v8/finance/chart/7203.T?range=1mo&interval=1d')
 .then(res => res.json())
 .then(data => {
@@ -70,6 +70,7 @@ fetch('https://query1.finance.yahoo.com/v8/finance/chart/7203.T?range=1mo&interv
     line1.setData(chartData);
     chart.timeScale().fitContent();
 });
+＊/
 const dataB = [
     { time: '2024-01-01', value: 100 },
     { time: '2024-01-02', value: 101 },
