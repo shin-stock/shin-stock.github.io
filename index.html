@@ -6,7 +6,7 @@
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
-<h3>株価比較（前日比20）</h3>
+<h3>株価比較（前日比21）</h3>
 
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
 
@@ -46,13 +46,30 @@ const line3 = chart.addSeries(LightweightCharts.LineSeries, {
     lineWidth: 2,
     title: 'C'
 });
-
+/＊
 const dataA = [
     { time: '2024-01-01', value: 100 },
     { time: '2024-01-02', value: 102 },
     { time: '2024-01-03', value: 105 }
-];
+]
+＊/
+fetch('https://query1.finance.yahoo.com/v8/finance/chart/7203.T?range=1mo&interval=1d')
+.then(res => res.json())
+.then(data => {
+    const result = data.chart.result[0];
+    const timestamps = result.timestamp;
+    const closes = result.indicators.quote[0].close;
 
+    const chartData = timestamps.map((t, i) => {
+        return {
+            time: new Date(t * 1000).toISOString().slice(0,10),
+            value: closes[i]
+        };
+    });
+
+    line1.setData(chartData);
+    chart.timeScale().fitContent();
+});
 const dataB = [
     { time: '2024-01-01', value: 100 },
     { time: '2024-01-02', value: 101 },
