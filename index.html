@@ -70,7 +70,14 @@ const dataC = [
     { time: '2026-03-20', value: 96 }
 ];
 
-line1.setData(realLikeData);
+
+fetch('./data.json')
+.then(res => res.json())
+.then(realData => {
+    line1.setData(realData);
+    chart.timeScale().fitContent();
+});
+//line1.setData(realLikeData);
 line2.setData(dataB);
 line3.setData(dataC);
 
