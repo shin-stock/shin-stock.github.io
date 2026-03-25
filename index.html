@@ -54,22 +54,23 @@ const realLikeData = [
     { time: '2026-03-20', value: 2910 }
 ];
 
-const dataB = [
-    { time: '2026-03-16', value: 100 },
-    { time: '2026-03-17', value: 101 },
-    { time: '2026-03-18', value: 99 },
-    { time: '2026-03-19', value: 102 },
-    { time: '2026-03-20', value: 103 }
-];
+const baseB = dataB[0].value;
 
-const dataC = [
-    { time: '2026-03-16', value: 100 },
-    { time: '2026-03-17', value: 98 },
-    { time: '2026-03-18', value: 97 },
-    { time: '2026-03-19', value: 99 },
-    { time: '2026-03-20', value: 96 }
-];
+const normalizedB = dataB.map(item => ({
+    time: item.time,
+    value: item.value / baseB * 100
+}));
 
+line2.setData(normalizedB);
+    
+const baseC = dataC[0].value;
+
+const normalizedC = dataC.map(item => ({
+    time: item.time,
+    value: item.value / baseC * 100
+}));
+
+line3.setData(normalizedC);
 
 
 
