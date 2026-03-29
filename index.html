@@ -81,13 +81,12 @@ fetch('./data.json')
 .then(res => res.json())
 .then(realData => {
 //    const base = realData[0].value;
-
 //    const normalizedData = realData.map(item => ({
 //        time: item.time,
 //        value: item.value / base * 100
 //    }));
     line1.setData(realData);
-  //  line1.setData(normalizedData);
+//  line1.setData(normalizedData);
     chart.timeScale().fitContent();
 });
 
