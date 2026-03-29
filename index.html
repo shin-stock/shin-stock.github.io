@@ -6,7 +6,7 @@
 <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
-<h3>株価比較（前日比33）</h3>
+<h3>株価比較（前日比34）</h3>
 
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
 
@@ -37,14 +37,14 @@ const line1 = chart.addSeries(LightweightCharts.LineSeries, {
     lineWidth: 2,
     title: '7203'
 });
-const line2 = chart.addSeries(LightweightCharts.LineSeries, {
-    lineWidth: 2,
-    title: 'B'
-});
-const line3 = chart.addSeries(LightweightCharts.LineSeries, {
-    lineWidth: 2,
-    title: 'C'
-});
+//const line2 = chart.addSeries(LightweightCharts.LineSeries, {
+//    lineWidth: 2,
+//    title: 'B'
+//});
+//const line3 = chart.addSeries(LightweightCharts.LineSeries, {
+//    lineWidth: 2,
+//    title: 'C'
+//});
 
 const realLikeData = [
     { time: '2026-03-16', value: 2840 },
@@ -73,8 +73,8 @@ const normalizedC = dataC.map(item => ({
 //line3.setData(normalizedC);
 
 
-line2.setData(reallikeDataB);
-line3.setData(reallikeDataC);
+//line2.setData(reallikeDataB);
+//line3.setData(reallikeDataC);
 
 
 fetch('./data.json')
