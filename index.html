@@ -33,15 +33,6 @@ const chart = LightweightCharts.createChart(chartEl, {
     }
 });
     
-function normalizeData(data) {
-    const base = data[0].value;
-
-    return data.map(item => ({
-        time: item.time,
-        value: item.value / base * 100
-    }));
-}
-    
 const line1 = chart.addSeries(LightweightCharts.LineSeries, {
     lineWidth: 2,
     title: '7203'
@@ -88,6 +79,18 @@ fetch('./data.json')
     line2.setData(normalizedDataB);
     chart.timeScale().fitContent();
 });   
+
+function normalizeData(data) {
+    const base = data[0].value;
+
+    return data.map(item => ({
+        time: item.time,
+        value: item.value / base * 100
+    }));
+}
+    
+
+    
 window.addEventListener('resize', () => {
     chart.applyOptions({
         width: Math.max(document.documentElement.clientWidth - 16, 300)
