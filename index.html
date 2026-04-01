@@ -79,15 +79,27 @@ const realLikeDataB = [
 ];
 */
 
+
 ////////////////////////////////////////////////////////////////////
     
+document.getElementById('toggle1').addEventListener('change', function () {
+    line1.applyOptions({
+        visible: this.checked
+    });
+});
+
+document.getElementById('toggle2').addEventListener('change', function () {
+    line2.applyOptions({
+        visible: this.checked
+    });
+});
+  
 window.addEventListener('resize', () => {
     chart.applyOptions({
         width: Math.max(document.documentElement.clientWidth - 16, 300)
     });
 });
 </script>
-
 
 </body>
 </html>
