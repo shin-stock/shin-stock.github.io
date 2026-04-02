@@ -54,19 +54,19 @@ const chart = LightweightCharts.createChart(chartEl, {
         borderVisible: true
     }
 });
-/*
+
 stocks.forEach((stock, index) => {
     const line = chart.addSeries(LightweightCharts.LineSeries, {
         lineWidth: 2,
         title: stock.name
     });
 
-    lines.push(line);
+//    lines.push(line);
 });
-*/    
     
     
-
+    
+/*
 const line1 = chart.addSeries(LightweightCharts.LineSeries, {
     lineWidth: 2,
     title: name1
@@ -81,7 +81,7 @@ const line3 = chart.addSeries(LightweightCharts.LineSeries, {
     lineWidth: 2,
     title: name3
 });
-
+*/
 loadAndSetData('./data.json', line1); ////
 loadAndSetData('./data2.json', line2); ////
 loadAndSetData('./data3.json', line3); ////
