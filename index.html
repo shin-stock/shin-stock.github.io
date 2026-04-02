@@ -8,10 +8,10 @@
     
 <body>
     
-<h3>株価比較（前日比 f09 ）</h3>
+<h3>株価比較（前日比 f10 ）</h3>
     
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
-
+<div id="controls"></div>
 
 
 <script>
@@ -21,7 +21,7 @@ const name2 = 'ソニー';
 
 const controls = document.getElementById('controls');
 
-<div id="controls"></div>
+
 controls.innerHTML = `
 <label><input type="checkbox" id="toggle1" checked> ${name1}</label>
 <label><input type="checkbox" id="toggle2" checked> ${name2}</label>
