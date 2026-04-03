@@ -23,6 +23,7 @@ const name1 = 'トヨタ';
 const name2 = 'ソニー';    
 const name3 = 'スズキ';   
 */
+/*
 const lines = [];
 
 stocks.forEach((stock, index) => {
@@ -33,7 +34,7 @@ stocks.forEach((stock, index) => {
 
     lines.push(line);
 });
-
+*/
 controls.innerHTML = '';
 
 stocks.forEach((stock, index) => {
@@ -45,8 +46,8 @@ stocks.forEach((stock, index) => {
     const toggleId = 'toggle' + index;
     const line = lines[index];
 
-    loadAndSetData(stock.file, line);
-    bindToggle(toggleId, line);
+//    loadAndSetData(stock.file, line);
+//    bindToggle(toggleId, line);
 });
 
 /*
