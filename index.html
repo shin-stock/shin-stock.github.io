@@ -8,13 +8,13 @@
     
 <body>
     
-<h3>株価比較（前日比 f23 ）</h3>
+<h3>株価比較（前日比 f22 ）</h3>
 <div id="controls"></div>   
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
 
 <script>
 const stocks = [
-    { name: 'トヨタ', file: './data.json' },
+    { name: 'ヨタ', file: './data.json' },
     { name: 'スズキ', file: './data2.json' },
     { name: 'ソニー', file: './data3.json' }
 ];
@@ -67,7 +67,7 @@ const line3 = chart.addSeries(LightweightCharts.LineSeries, {
     title: name3
 });
 
-
+/*
 stocks.forEach((stock, index) => {
     const toggleId = 'toggle' + index;
     const line = lines[index];
@@ -75,7 +75,7 @@ stocks.forEach((stock, index) => {
     loadAndSetData(stock.file, line);
     bindToggle(toggleId, line);
 });
-/*    
+*/    
 loadAndSetData('./data.json', line1); ////
 loadAndSetData('./data2.json', line2); ////
 loadAndSetData('./data3.json', line3); ////
@@ -83,7 +83,7 @@ loadAndSetData('./data3.json', line3); ////
 bindToggle('toggle1', line1);
 bindToggle('toggle2', line2);
 bindToggle('toggle3', line3);
-*/
+
 window.addEventListener('resize', () => {
     chart.applyOptions({
         width: Math.max(document.documentElement.clientWidth - 16, 300)
