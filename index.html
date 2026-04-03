@@ -74,7 +74,7 @@ stocks.forEach((stock, index) => {
     const line = lines[index];
     line = chart.addSeries(LightweightCharts.LineSeries, {
     lineWidth: 2,
-    title: stocks.name
+    title: stock.name
     });
     loadAndSetData(stock.file, line);
     bindToggle(toggleId, line);
