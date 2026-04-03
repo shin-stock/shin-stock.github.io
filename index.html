@@ -8,23 +8,35 @@
     
 <body>
     
-<h3>株価比較（前日比 f20 ）</h3>
+<h3>株価比較（前日比 f21 ）</h3>
 <div id="controls"></div>   
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
 
 <script>
-
+const stocks = [
+    { name: 'トヨタ', file: './data.json' },
+    { name: 'ソニー', file: './data2.json' },
+    { name: '任天堂', file: './data3.json' }
+];
 const name1 = 'トヨタ';
 const name2 = 'ソニー';    
 const name3 = 'スズキ';   
-    
+
+controls.innerHTML = '';
+
+stocks.forEach((stock, index) => {
+    const toggleId = 'toggle' + index;
+
+    controls.innerHTML += createToggle(toggleId, stock.name);
+});
+/*
 const controls = document.getElementById('controls');  
 
 controls.innerHTML =
     createToggle('toggle1', name1) +
     createToggle('toggle2', name2) +
     createToggle('toggle3', name3);
-
+*/
 const chartEl = document.getElementById('chart');
 
 const chart = LightweightCharts.createChart(chartEl, {
@@ -65,11 +77,11 @@ const line3 = chart.addSeries(LightweightCharts.LineSeries, {
 loadAndSetData('./data.json', line1); ////
 loadAndSetData('./data2.json', line2); ////
 loadAndSetData('./data3.json', line3); ////
-
+/*
 bindToggle('toggle1', line1);
 bindToggle('toggle2', line2);
 bindToggle('toggle3', line3);
-
+*/
 window.addEventListener('resize', () => {
     chart.applyOptions({
         width: Math.max(document.documentElement.clientWidth - 16, 300)
