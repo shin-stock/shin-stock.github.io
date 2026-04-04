@@ -8,7 +8,8 @@
     
 <body>
     
-<h3>株価比較（前日比 g03   ）</h3>
+<h3>株価比較（前日比 g04
+    ）</h3>
 
 <label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>   
 <div id="controls"></div>   
@@ -50,7 +51,7 @@ const chart = LightweightCharts.createChart(chartEl, {
         borderVisible: true
     }
 });
-
+let useNormalize = true;
 stocks.forEach((stock, index) => {
     const line = chart.addSeries(LightweightCharts.LineSeries, {
         lineWidth: 2,
