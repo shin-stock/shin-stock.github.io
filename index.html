@@ -8,14 +8,14 @@
     
 <body>
     
-<h3>株価比較（前日比 H02 ）</h3>
+<h3>株価比較（前日比 H01 ）</h3>
 <div id="controls"></div>   
 <label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
 
 <script>
 const stocks = [
-    { name: 'ヨタ', file: './data.json' },
+    { name: 'トヨタ', file: './data.json' },
     { name: 'スズキ', file: './data2.json' },
     { name: 'ソニー', file: './data3.json' }
 ];
@@ -90,13 +90,6 @@ window.addEventListener('resize', () => {
 
 
 ///////////////// user function  //////////////////////////////////
-//function normalizeData(data) {    const base = data[0].value;
-
-//    return data.map(item => ({
-//        time: item.time,
-//    value: item.value / base * 100
-//    }));
-//}
 
 function createToggle(toggleId, labelText) {
     return `<label><input type="checkbox" id="${toggleId}" checked> ${labelText}</label>`;
@@ -139,58 +132,33 @@ function processData(data) {
 ////////////////////////////////////////////////////////////////////
 /*******************************************************************
 
-
-
-
-
-
 function refreshAllLines() {
+    stocks.forEach((stock, index) => {
+        const line = lines[index];
+        const data = rawDataMap[stock.file];
 
-stocks.forEach((stock, index) => {
+        if (!data) {
+            return;
+        }
 
-const line = lines[index];
+    const processed = processData(data);
+    line.setData(processed);
+    });
 
-const data = rawDataMap[stock.file];
-
-
-if (!data) {
-
-return;
-
-}
-
-
-const processed = processData(data);
-
-line.setData(processed);
-
-});
-
-
-chart.timeScale().fitContent();
-
+    chart.timeScale().fitContent();
 }
 
 function loadAndSetData(fileName, line) {
+    fetch(fileName)
+    .then(res => res.json())
+    .then(realData => {
+        rawDataMap[fileName] = realData;
+        refreshAllLines();
+    })
 
-fetch(fileName)
-
-.then(res => res.json())
-
-.then(realData => {
-
-rawDataMap[fileName] = realData;
-
-refreshAllLines();
-
-})
-
-.catch(err => {
-
-console.log(fileName + ' の読み込み失敗', err);
-
-});
-
+    .catch(err => {
+        console.log(fileName + ' の読み込み失敗', err);
+    });
 }
 
 const rawDataMap = {};
@@ -198,9 +166,6 @@ const rawDataMap = {};
 let useRelative = false;
 
 let baseStockIndex = 0;
-
-
-
 
 *///////////////////////////////////////////////////////////////////
     
