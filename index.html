@@ -8,7 +8,7 @@
     
 <body>
     
-<h3>株価比較（前日比 G01 ）</h3>
+<h3>株価比較（前日比 G001 ）</h3>
 <div id="controls"></div>   
 <label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
@@ -19,11 +19,7 @@ const stocks = [
     { name: 'スズキ', file: './data2.json' },
     { name: 'ソニー', file: './data3.json' }
 ];
-/*
-const name1 = 'トヨタ';
-const name2 = 'ソニー';    
-const name3 = 'スズキ';   
-*/ 
+    
 const controls = document.getElementById('controls');  
 const lines = [];
 controls.innerHTML = '';
@@ -53,25 +49,6 @@ const chart = LightweightCharts.createChart(chartEl, {
         borderVisible: true
     }
 });
-/*  
-const line1 = chart.addSeries(LightweightCharts.LineSeries, {
-    lineWidth: 2,
-    title: stocks[0].name
-});
-    
-const line2 = chart.addSeries(LightweightCharts.LineSeries, {
-    lineWidth: 2,
-    title: stocks[1].name
-});
-
-const line3 = chart.addSeries(LightweightCharts.LineSeries, {
-    lineWidth: 2,
-    title: stocks[2].name
-});
-*/
-
-
-
 
 stocks.forEach((stock, index) => {
     const line = chart.addSeries(LightweightCharts.LineSeries, {
@@ -82,28 +59,14 @@ stocks.forEach((stock, index) => {
     lines.push(line);
 });
 
-
 stocks.forEach((stock, index) => {
     const toggleId = 'toggle' + index;
     const line = lines[index];
-    /*
-    line = chart.addSeries(LightweightCharts.LineSeries, {
-    lineWidth: 2,
-    title: stock.name
-    });
-    */
+    
     loadAndSetData(stock.file, line);
     bindToggle(toggleId, line);
 });
-/* 
-loadAndSetData('./data.json', line1); ////
-loadAndSetData('./data2.json', line2); ////
-loadAndSetData('./data3.json', line3); ////
 
-bindToggle('toggle1', line1);
-bindToggle('toggle2', line2);
-bindToggle('toggle3', line3);
-*/
 window.addEventListener('resize', () => {
     chart.applyOptions({
         width: Math.max(document.documentElement.clientWidth - 16, 300)
@@ -161,7 +124,6 @@ function processData(data) {
         value: item.value / base * 100
     }));
 }
-
 
 
 function loadAndSetData(fileName, line) {
