@@ -23,6 +23,7 @@ const stocks = [
 
 const controls = document.getElementById('controls');  
 const lines = [];
+const useNormalize = true;
 
 controls.innerHTML = '';
 
@@ -52,7 +53,9 @@ const chart = LightweightCharts.createChart(chartEl, {
         borderVisible: true
     }
 });
-let useNormalize = true;
+    
+
+
 stocks.forEach((stock, index) => {
     const line = chart.addSeries(LightweightCharts.LineSeries, {
         lineWidth: 2,
