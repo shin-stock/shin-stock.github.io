@@ -145,6 +145,204 @@ function bindToggle(toggleId, line) {
 }
 ////////////////////////////////////////////////////////////////////
 /*******************************************************************
+
+let useNormalize = true;
+
+function processData(data) {
+    if (!useNormalize) {
+        return data; // そのまま
+    }
+
+    const base = data[0].value;
+
+    return data.map(item => ({
+        time: item.time,
+        value: item.value / base * 100
+    }));
+}
+
+
+
+function loadAndSetData(fileName, line) {
+    fetch(fileName)
+    .then(res => res.json())
+    .then(realData => {
+        const processed = processData(realData);
+        line.setData(processed);
+        chart.timeScale().fitContent();
+    })
+    .catch(err => {
+        console.log(fileName + ' の読み込み失敗', err);
+    });
+}
+
+document.getElementById('normalizeToggle').addEventListener('change', function () {
+    useNormalize = this.checked;
+
+    // 全データ再読み込み
+    stocks.forEach((stock, index) => {
+        loadAndSetData(stock.file, lines[index]);
+    });
+});
+
+<label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
+
+*///////////////////////////////////////////////////////////////////
+    
+</script>
+
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>株比較チャート</title>
+<script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+</head> 
+    
+<body>
+    
+<h3>株価比較（前日比 f29 ）</h3>
+<div id="controls"></div>   
+<div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
+
+<script>
+const stocks = [
+    { name: 'ヨタ', file: './data.json' },
+    { name: 'スズキ', file: './data2.json' },
+    { name: 'ソニー', file: './data3.json' }
+];
+/*
+const name1 = 'トヨタ';
+const name2 = 'ソニー';    
+const name3 = 'スズキ';   
+*/ 
+const controls = document.getElementById('controls');  
+const lines = [];
+controls.innerHTML = '';
+stocks.forEach((stock, index) => {
+    const toggleId = 'toggle' + index;
+    controls.innerHTML += createToggle(toggleId, stock.name);
+});
+
+const chartEl = document.getElementById('chart');
+
+const chart = LightweightCharts.createChart(chartEl, {
+    width: Math.max(document.documentElement.clientWidth - 16, 300),
+    height: 400,
+    layout: {
+        background: { color: '#ffffff' },
+        textColor: '#000000'
+    },
+    grid: {
+        vertLines: { color: '#e0e0e0' },
+        horzLines: { color: '#e0e0e0' }
+    },
+    rightPriceScale: {
+        visible: true
+    },
+    timeScale: {
+        visible: true,
+        borderVisible: true
+    }
+});
+/*  
+const line1 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: stocks[0].name
+});
+    
+const line2 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: stocks[1].name
+});
+
+const line3 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: stocks[2].name
+});
+*/
+
+
+
+
+stocks.forEach((stock, index) => {
+    const line = chart.addSeries(LightweightCharts.LineSeries, {
+        lineWidth: 2,
+        title: stock.name
+    });
+
+    lines.push(line);
+});
+
+
+stocks.forEach((stock, index) => {
+    const toggleId = 'toggle' + index;
+    const line = lines[index];
+    /*
+    line = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: stock.name
+    });
+    */
+    loadAndSetData(stock.file, line);
+    bindToggle(toggleId, line);
+});
+/* 
+loadAndSetData('./data.json', line1); ////
+loadAndSetData('./data2.json', line2); ////
+loadAndSetData('./data3.json', line3); ////
+
+bindToggle('toggle1', line1);
+bindToggle('toggle2', line2);
+bindToggle('toggle3', line3);
+*/
+window.addEventListener('resize', () => {
+    chart.applyOptions({
+        width: Math.max(document.documentElement.clientWidth - 16, 300)
+    });
+});
+   
+///////////////// user function  //////////////////////////////////
+function normalizeData(data) {
+    const base = data[0].value;
+
+    return data.map(item => ({
+        time: item.time,
+        value: item.value / base * 100
+    }));
+}
+
+function loadAndSetData(fileName, line) {
+    fetch(fileName)
+    .then(res => res.json())
+    .then(realData => {
+        const normalizedData = normalizeData(realData);
+        line.setData(normalizedData);
+        chart.timeScale().fitContent();
+    })
+    .catch(err => {
+        console.log(fileName + ' の読み込み失敗', err);
+    });
+}
+
+function createToggle(toggleId, labelText) {
+    return `<label><input type="checkbox" id="${toggleId}" checked> ${labelText}</label>`;
+}
+
+function bindToggle(toggleId, line) {
+    document.getElementById(toggleId).addEventListener('change', function () {
+        line.applyOptions({
+            visible: this.checked
+        });
+    });
+}
+////////////////////////////////////////////////////////////////////
+/*******************************************************************
 const stocks = [
     { name: 'トヨタ', file: './data.json' },
     { name: 'スズキ', file: './data2.json' },
