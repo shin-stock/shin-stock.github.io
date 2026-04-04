@@ -16,14 +16,16 @@
 
 <script>
 const stocks = [
-    { name: 'とヨタ', file: './data.json' },
+    { name: 'トヨタ', file: './data.json' },
     { name: 'スズキ', file: './data2.json' },
     { name: 'ソニー', file: './data3.json' }
 ];
 
 const controls = document.getElementById('controls');  
 const lines = [];
+
 controls.innerHTML = '';
+
 stocks.forEach((stock, index) => {
     const toggleId = 'toggle' + index;
     controls.innerHTML += createToggle(toggleId, stock.name);
@@ -69,7 +71,7 @@ stocks.forEach((stock, index) => {
 });
 
 
-
+/*
 document.getElementById('normalizeToggle').addEventListener('change', function () {
     useNormalize = this.checked;
 
@@ -78,7 +80,7 @@ document.getElementById('normalizeToggle').addEventListener('change', function (
         loadAndSetData(stock.file, lines[index]);
     });
 });
-    
+*/    
 window.addEventListener('resize', () => {
     chart.applyOptions({
         width: Math.max(document.documentElement.clientWidth - 16, 300)
