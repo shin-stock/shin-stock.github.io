@@ -8,24 +8,24 @@
     
 <body>
     
-<h3>株価比較（前日比 G01 ）</h3>
-   
+<h3>株価比較（前日比 f29 ）</h3>
 <div id="controls"></div>   
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
 
 <script>
 const stocks = [
-    { name: 'トヨタ', file: './data.json' },
+    { name: 'ヨタ', file: './data.json' },
     { name: 'スズキ', file: './data2.json' },
     { name: 'ソニー', file: './data3.json' }
 ];
-
+/*
+const name1 = 'トヨタ';
+const name2 = 'ソニー';    
+const name3 = 'スズキ';   
+*/ 
 const controls = document.getElementById('controls');  
 const lines = [];
-//const useNormalize = true;
-
 controls.innerHTML = '';
-
 stocks.forEach((stock, index) => {
     const toggleId = 'toggle' + index;
     controls.innerHTML += createToggle(toggleId, stock.name);
@@ -52,7 +52,24 @@ const chart = LightweightCharts.createChart(chartEl, {
         borderVisible: true
     }
 });
+/*  
+const line1 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: stocks[0].name
+});
     
+const line2 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: stocks[1].name
+});
+
+const line3 = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: stocks[2].name
+});
+*/
+
+
 
 
 stocks.forEach((stock, index) => {
@@ -64,56 +81,34 @@ stocks.forEach((stock, index) => {
     lines.push(line);
 });
 
+
 stocks.forEach((stock, index) => {
     const toggleId = 'toggle' + index;
     const line = lines[index];
-
+    /*
+    line = chart.addSeries(LightweightCharts.LineSeries, {
+    lineWidth: 2,
+    title: stock.name
+    });
+    */
     loadAndSetData(stock.file, line);
     bindToggle(toggleId, line);
 });
+/* 
+loadAndSetData('./data.json', line1); ////
+loadAndSetData('./data2.json', line2); ////
+loadAndSetData('./data3.json', line3); ////
 
-
-/*
-document.getElementById('normalizeToggle').addEventListener('change', function () {
-    useNormalize = this.checked;
-
-    // 全データ再読み込み
-    stocks.forEach((stock, index) => {
-        loadAndSetData(stock.file, lines[index]);
-    });
-});
-*/    
+bindToggle('toggle1', line1);
+bindToggle('toggle2', line2);
+bindToggle('toggle3', line3);
+*/
 window.addEventListener('resize', () => {
     chart.applyOptions({
         width: Math.max(document.documentElement.clientWidth - 16, 300)
     });
 });
-/*
-let useNormalize = true;
-<label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
-
-function processData(data) {
-    if (!useNormalize) {
-        return data; // そのまま
-    }
-
-    const base = data[0].value;
-
-    return data.map(item => ({
-        time: item.time,
-        value: item.value / base * 100
-    }));
-}
-
-document.getElementById('normalizeToggle').addEventListener('change', function () {
-    useNormalize = this.checked;
-
-    // 全データ再読み込み
-    stocks.forEach((stock, index) => {
-        loadAndSetData(stock.file, lines[index]);
-    });
-});
-*/
+   
 ///////////////// user function  //////////////////////////////////
 function normalizeData(data) {
     const base = data[0].value;
@@ -148,20 +143,41 @@ function bindToggle(toggleId, line) {
         });
     });
 }
+////////////////////////////////////////////////////////////////////
+/*******************************************************************
+const stocks = [
+    { name: 'トヨタ', file: './data.json' },
+    { name: 'スズキ', file: './data2.json' },
+    { name: 'ソニー', file: './data3.json' }
+];
 
-function processData(data) {
-    if (!useNormalize) {
-        return data; // そのまま
-    }
+const lines = [];
 
-    const base = data[0].value;
+stocks.forEach((stock, index) => {
+    const line = chart.addSeries(LightweightCharts.LineSeries, {
+        lineWidth: 2,
+        title: stock.name
+    });
 
-    return data.map(item => ({
-        time: item.time,
-        value: item.value / base * 100
-    }));
-}
-*/////////////////////////////////////////////////////////////////////////////
+    lines.push(line);
+});
+
+controls.innerHTML = '';
+
+stocks.forEach((stock, index) => {
+    const toggleId = 'toggle' + index;
+    controls.innerHTML += createToggle(toggleId, stock.name);
+});
+
+stocks.forEach((stock, index) => {
+    const toggleId = 'toggle' + index;
+    const line = lines[index];
+
+    loadAndSetData(stock.file, line);
+    bindToggle(toggleId, line);
+});
+*///////////////////////////////////////////////////////////////////
+    
 </script>
 
 </body>
