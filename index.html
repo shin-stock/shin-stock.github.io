@@ -8,10 +8,12 @@
     
 <body>
     
-<h3>株価比較（前日比 g02   ）</h3>
+<h3>株価比較（前日比 g03   ）</h3>
+
+<label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>   
 <div id="controls"></div>   
 <div id="chart" style="width:100%; height:400px; border:1px solid #ccc;"></div>
-<label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
+
 <script>
 const stocks = [
     { name: 'とヨタ', file: './data.json' },
@@ -66,6 +68,17 @@ stocks.forEach((stock, index) => {
     bindToggle(toggleId, line);
 });
 
+
+
+document.getElementById('normalizeToggle').addEventListener('change', function () {
+    useNormalize = this.checked;
+
+    // 全データ再読み込み
+    stocks.forEach((stock, index) => {
+        loadAndSetData(stock.file, lines[index]);
+    });
+});
+    
 window.addEventListener('resize', () => {
     chart.applyOptions({
         width: Math.max(document.documentElement.clientWidth - 16, 300)
@@ -73,8 +86,6 @@ window.addEventListener('resize', () => {
 });
 /*
 let useNormalize = true;
-<label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
-
 <label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
 
 function processData(data) {
@@ -98,8 +109,6 @@ document.getElementById('normalizeToggle').addEventListener('change', function (
         loadAndSetData(stock.file, lines[index]);
     });
 });
-
-
 */
 ///////////////// user function  //////////////////////////////////
 function normalizeData(data) {
@@ -135,7 +144,20 @@ function bindToggle(toggleId, line) {
         });
     });
 }
-    
+
+function processData(data) {
+    if (!useNormalize) {
+        return data; // そのまま
+    }
+
+    const base = data[0].value;
+
+    return data.map(item => ({
+        time: item.time,
+        value: item.value / base * 100
+    }));
+}
+*/////////////////////////////////////////////////////////////////////////////
 </script>
 
 </body>
