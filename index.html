@@ -8,7 +8,7 @@
     
 <body>
     
-<h3>株価比較（前日比 J00  ）</h3>
+<h3>株価比較（前日比 J01  ）</h3>
 <div id="controls"></div>   
 <label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
 <label><input type="checkbox" id="relativeToggle"> 基準銘柄で割る</label>
@@ -210,6 +210,16 @@ function loadAndSetData(fileName, line) {
     
 ////////////////////////////////////////////////////////////////////
 /*******************************************************************
+baseStockSelect.disabled = true;
+
+document.getElementById('relativeToggle').addEventListener('change', function () {
+    useRelative = this.checked;
+
+    // プルダウンの有効/無効切替
+    baseStockSelect.disabled = !this.checked;
+
+    refreshAllLines();
+});
 
 
 
