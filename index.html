@@ -8,7 +8,7 @@
     
 <body>
     
-<h3>株価比較（前日比 H08  ）</h3>
+<h3>株価比較（前日比 J00  ）</h3>
 <div id="controls"></div>   
 <label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
 <label><input type="checkbox" id="relativeToggle"> 基準銘柄で割る</label>
@@ -211,21 +211,9 @@ function loadAndSetData(fileName, line) {
 ////////////////////////////////////////////////////////////////////
 /*******************************************************************
 
-<label for="baseStockSelect">基準銘柄:</label>
-<select id="baseStockSelect"></select>
 
-const baseStockSelect = document.getElementById('baseStockSelect');
 
-stocks.forEach((stock, index) => {
-    baseStockSelect.innerHTML += `<option value="${index}">${stock.name}</option>`;
-});
 
-baseStockSelect.value = baseStockIndex;
-
-baseStockSelect.addEventListener('change', function () {
-    baseStockIndex = Number(this.value);
-    refreshAllLines();
-});
 
 *///////////////////////////////////////////////////////////////////
     
