@@ -8,7 +8,7 @@
     
 <body>
     
-<h3>株価比較（前日比 K00 ）</h3>
+<h3>株価比較（前日比 K01 ）</h3>
 <div id="controls"></div>   
 <label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
 <label><input type="checkbox" id="relativeToggle"> 基準銘柄で割る </label>
@@ -134,7 +134,7 @@ function bindToggle(toggleId, line) {
         });
     });
 }
-
+/*
 function loadAndSetData(fileName, line) {
     fetch(fileName)
     .then(res => res.json())
@@ -147,7 +147,7 @@ function loadAndSetData(fileName, line) {
         console.log(fileName + ' の読み込み失敗', err);
     });
 }
-
+*/
 
 function processData(data, stockIndex) {
     let result = data;
