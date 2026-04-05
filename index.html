@@ -8,7 +8,7 @@
     
 <body>
     
-<h3>株価比較（前日比 H07  ）</h3>
+<h3>株価比較（前日比 H08  ）</h3>
 <div id="controls"></div>   
 <label><input type="checkbox" id="normalizeToggle" checked> 正規化</label>
 <label><input type="checkbox" id="relativeToggle"> 基準銘柄で割る</label>
@@ -99,6 +99,10 @@ document.getElementById('relativeToggle').addEventListener('change', function ()
     refreshAllLines();
 });
 
+baseStockSelect.addEventListener('change', function () {
+    baseStockIndex = Number(this.value);
+    refreshAllLines();
+});
 
 window.addEventListener('resize', () => {
     chart.applyOptions({
